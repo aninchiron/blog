@@ -550,6 +550,8 @@ a:hover {
     background-position: center;
     background-repeat: no-repeat;
     overflow: hidden; }
+    .post .post-logo img {
+      width: 100%; }
   .post .post-container {
     width: 55%;
     margin: 0 auto; }
