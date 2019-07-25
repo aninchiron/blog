@@ -449,6 +449,11 @@ a:hover {
   min-height: 100%;
   box-sizing: border-box; }
 
+.entry-title span {
+  padding: 10px;
+  background-color: #fbfbfb;
+  color: #ff7657; }
+
 .meta-arraw {
   width: 10px;
   height: 17px;
@@ -584,7 +589,7 @@ a:hover {
 code,
 pre {
   font-size: 0.8em;
-  background-color: #f8f8f8;
+  background-color: #f6f8fa;
   font-family: 'Roboto Mono', Monaco, courier, monospace; }
 
 code {
@@ -786,14 +791,23 @@ pre {
     opacity: 0.5; }
 
 .archive {
-  padding-bottom: 60px; }
+  padding-bottom: 60px;
+  width: 55%;
+  margin: 0 auto; }
   .archive h2.year {
     color: #444444; }
   .archive ul.list {
     padding-left: 50px; }
     .archive ul.list li {
       padding: 10px 0;
-      line-height: 1.5; }
+      line-height: 1.5;
+      transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1); }
+      .archive ul.list li:hover {
+        transform: translateX(10px); }
+        .archive ul.list li:hover a {
+          color: #ff7657; }
+          .archive ul.list li:hover a span {
+            color: #ff7657; }
   .archive .date {
     margin-right: 30px;
     color: #7f8c8d; }
@@ -807,6 +821,17 @@ pre {
 
 #comment #ds-thread #ds-reset .ds-powered-by {
   display: none; }
+
+/* https://github.com/sindresorhus/github-markdown-css */
+.markdown-body blockquote {
+  margin: 0 0 16px 0;
+  padding: 0 1em;
+  color: #6a737d;
+  border-left: 0.25em solid #dfe2e5; }
+  .markdown-body blockquote:first-child {
+    margin-top: 0; }
+  .markdown-body blockquote:last-child {
+    margin-bottom: 0; }
 
 @media screen and (max-width: 767px) {
   .logo a img {

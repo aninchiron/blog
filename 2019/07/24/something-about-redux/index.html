@@ -55,7 +55,7 @@
       
       
       <div class="post-logo">
-        <img src="/../images/about_redux.jpg" alt="关于redux的xxx">
+        <img src="https://i.loli.net/2019/07/25/5d3925d4dca3917226.jpg" alt="关于redux的xxx">
       </div>
     
     <article class="post-container">
@@ -83,8 +83,15 @@
         </div>
       </div>
       <!-- Post Main Content -->
-      <div class="post-content ">
-        <h3 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h3>
+      <div class="post-content markdown-body ">
+        <h1 id="Redux简介"><a href="#Redux简介" class="headerlink" title="Redux简介"></a>Redux简介</h1><h2 id="Redux-是-JavaScript-状态容器，提供可预测化的状态管理"><a href="#Redux-是-JavaScript-状态容器，提供可预测化的状态管理" class="headerlink" title="Redux 是 JavaScript 状态容器，提供可预测化的状态管理"></a>Redux 是 JavaScript 状态容器，提供可预测化的状态管理</h2><p><img src="https://i.loli.net/2019/07/25/5d39572380a9048635.jpg" alt="redux"></p>
+<p>使用redux的createStore，创建一个store（一个应用建议只有一个store）。<br>store中维护了一个唯一的state（一个js对象）和订阅的函数队列listeners，<br>state是只读的，唯一改变state的方法就是使用store的dispatch，派发一个action，action经相应的纯函数reducer处理返回一个新的state替换现有的state，订阅者可以使用store的subscribe注册订阅函数，当reducer处理完成后，便会遍历所有的订阅函数并运行，通知state改变,从而所有的订阅者都知道state改变了，然后使用store的getState获取最新的state，并作出相应的处理</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">100</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="主要api"><a href="#主要api" class="headerlink" title="主要api"></a>主要api</h1><h2 id="createStore-combineReducers-bindActionCreators-applyMiddleware-compose"><a href="#createStore-combineReducers-bindActionCreators-applyMiddleware-compose" class="headerlink" title="createStore, combineReducers, bindActionCreators,applyMiddleware, compose"></a><strong>createStore</strong>, <strong>combineReducers</strong>, <strong>bindActionCreators</strong>,<strong>applyMiddleware</strong>, <strong>compose</strong></h2><h1 id="api源码解读"><a href="#api源码解读" class="headerlink" title="api源码解读"></a>api源码解读</h1><blockquote>
+<h1 id="发布订阅模式（也叫观察者模式）"><a href="#发布订阅模式（也叫观察者模式）" class="headerlink" title="发布订阅模式（也叫观察者模式）"></a>发布订阅模式（也叫观察者模式）</h1><h3 id="它定义对象间的一种一对多的依赖关系当一个对象状态发生改变时，所有依赖它的对象都将得到通知"><a href="#它定义对象间的一种一对多的依赖关系当一个对象状态发生改变时，所有依赖它的对象都将得到通知" class="headerlink" title="它定义对象间的一种一对多的依赖关系当一个对象状态发生改变时，所有依赖它的对象都将得到通知"></a>它定义对象间的一种一对多的依赖关系当一个对象状态发生改变时，所有依赖它的对象都将得到通知</h3></blockquote>
+
       </div>
     </article>
   </div>
@@ -124,7 +131,7 @@
 <footer class="site-info">
   <p>
     
-      <span>Powered By <a href="https://hexo.io/" target="_blank">Hexo</a></span>
+      <span><h2>旋转，跳跃喔，他感到每条路都在头疼 《一个短篇》</h2></span>
     
   </p>
 </footer>
