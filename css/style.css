@@ -611,8 +611,7 @@ pre .line {
     border-collapse: collapse;
     padding: 0;
     margin: 0;
-    background-color: #f8f8f8;
-    border: 1px solid #eee; }
+    background-color: #f8f8f8; }
   .highlight table > tbody > tr:nth-of-type(odd) {
     background-color: #f8f8f8; }
   .highlight table > tbody > tr:hover {
@@ -793,20 +792,23 @@ pre {
 .archive {
   padding-bottom: 60px;
   width: 55%;
-  margin: 0 auto; }
+  margin: 0 auto;
+  height: 100%;
+  box-sizing: border-box; }
   .archive h2.year {
     color: #444444; }
   .archive ul.list {
     padding-left: 50px; }
     .archive ul.list li {
       padding: 10px 0;
-      line-height: 1.5;
-      transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1); }
-      .archive ul.list li:hover {
-        transform: translateX(10px); }
-        .archive ul.list li:hover a {
+      line-height: 1.5; }
+      .archive ul.list li a {
+        display: block;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .archive ul.list li a:hover {
+          transform: translateX(10px);
           color: #ff7657; }
-          .archive ul.list li:hover a span {
+          .archive ul.list li a:hover span {
             color: #ff7657; }
   .archive .date {
     margin-right: 30px;
@@ -823,14 +825,53 @@ pre {
   display: none; }
 
 /* https://github.com/sindresorhus/github-markdown-css */
+.markdown-body :first-child {
+  margin-top: 0 !important; }
+
+.markdown-body :last-child {
+  margin-bottom: 0 !important; }
+
+.markdown-body * {
+  color: #3e3e3e; }
+
+.markdown-body h1 {
+  font-size: 2em;
+  margin: .67em 0; }
+
+.markdown-body h2 {
+  font-size: 1.5em; }
+
+.markdown-body h3 {
+  font-size: 1.25em; }
+
+.markdown-body h1, .markdown-body h2 {
+  border-bottom: 1px solid #eaecef;
+  padding-bottom: .3em; }
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  margin-top: 24px; }
+
+.markdown-body p,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 16px; }
+
 .markdown-body blockquote {
-  margin: 0 0 16px 0;
   padding: 0 1em;
-  color: #6a737d;
-  border-left: 0.25em solid #dfe2e5; }
-  .markdown-body blockquote:first-child {
+  border-left: 0.25em solid #dfe2e5;
+  margin: 0; }
+  .markdown-body blockquote * {
+    color: #6a737d; }
+  .markdown-body blockquote :first-child {
     margin-top: 0; }
-  .markdown-body blockquote:last-child {
+  .markdown-body blockquote :last-child {
     margin-bottom: 0; }
 
 @media screen and (max-width: 767px) {
