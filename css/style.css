@@ -921,8 +921,28 @@ pre {
   .archive ul.list {
     padding-left: 20px; } }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   .page .site-header,
-  .home.paged .site-header {
+  .home.paged {
     padding-left: 20px;
-    padding-right: 20px; } }
+    padding-right: 20px; }
+  .site-info {
+    padding: 0; }
+  .site-header {
+    padding: 0;
+    display: flex;
+    flex-direction: column-reverse;
+    height: auto;
+    border: none; }
+    .site-header .lyric {
+      font-size: 13px;
+      text-align: center;
+      padding: 15px 5px 0px 5px; }
+    .site-header .navbar {
+      box-sizing: border-box;
+      padding: 12px;
+      width: 100%;
+      justify-content: flex-end;
+      border-bottom: 1px solid #dcdcdc; }
+      .site-header .navbar a {
+        font-size: 18px; } }
