@@ -474,26 +474,12 @@ a:hover {
   height: 70px;
   display: flex;
   justify-content: space-between;
-  padding: 15px 50px;
+  align-items: center;
+  padding: 12px 50px;
   border-top: 1px solid #dcdcdc;
-  border-bottom: 1px solid #dcdcdc;
-  align-items: center; }
-  .site-header .logo {
-    height: 50px; }
-    .site-header .logo a {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center; }
-      .site-header .logo a img {
-        height: 100%;
-        width: auto; }
-      .site-header .logo a span {
-        font-size: 20px;
-        padding-left: 6px;
-        color: #94908f; }
-        .site-header .logo a span:hover {
-          color: #ff7657; }
+  border-bottom: 1px solid #dcdcdc; }
+  .site-header .lyric {
+    color: #94908f; }
   .site-header .navbar {
     display: flex; }
     .site-header .navbar a {
@@ -573,16 +559,6 @@ a:hover {
     position: relative; }
     .post .post-logo img {
       width: 100%; }
-    .post .post-logo a {
-      position: absolute;
-      font-weight: 900;
-      font-size: 30px;
-      opacity: .4;
-      color: #fff;
-      right: 45px;
-      top: 50px; }
-      .post .post-logo a:hover {
-        opacity: 1; }
   .post .post-logo-placeholder {
     height: 160px;
     text-align: right;
@@ -938,8 +914,6 @@ pre {
   cursor: zoom-out; }
 
 @media screen and (max-width: 767px) {
-  .logo a img {
-    height: 36px; }
   .site-content {
     min-height: auto; }
     .site-content .content-area {
