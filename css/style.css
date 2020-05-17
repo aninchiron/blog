@@ -2,7 +2,11 @@ html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  line-height: 1.15; }
+  line-height: 1.15;
+  box-sizing: border-box; }
+
+* {
+  box-sizing: border-box; }
 
 body {
   margin: 0; }
@@ -471,11 +475,11 @@ a:hover {
   background: url("../images/arrow-right.svg") no-repeat; }
 
 .site-header {
-  height: 70px;
+  height: 88px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 50px;
+  padding: 0 50px;
   border-top: 1px solid #dcdcdc;
   border-bottom: 1px solid #dcdcdc; }
   .site-header .lyric {
@@ -938,6 +942,8 @@ pre {
       font-size: 13px;
       text-align: center;
       padding: 15px 5px 0px 5px; }
+    .site-header .nothome {
+      display: none; }
     .site-header .navbar {
       box-sizing: border-box;
       padding: 12px;
@@ -945,4 +951,36 @@ pre {
       justify-content: flex-end;
       border-bottom: 1px solid #dcdcdc; }
       .site-header .navbar a {
-        font-size: 18px; } }
+        font-size: 18px; }
+  .article-entry * {
+    box-sizing: border-box; }
+  .article-entry .entry-box {
+    width: 100%;
+    padding: 10px;
+    margin: 0; }
+    .article-entry .entry-box .entry-logo {
+      display: none; }
+    .article-entry .entry-box .entry-content {
+      width: 100%; }
+      .article-entry .entry-box .entry-content h1 {
+        font-size: 20px; }
+      .article-entry .entry-box .entry-content p {
+        font-size: 14px;
+        margin: 5px 0 0 0; }
+  .archive {
+    padding: 5px 10px;
+    width: 100%; }
+    .archive .row .year {
+      margin: 5px 0 15px 0; }
+    .archive .row .list {
+      padding-left: 12px; }
+      .archive .row .list li {
+        padding: 0 0 10px 0; }
+  .post .post-container {
+    width: 100%;
+    margin: 0;
+    padding: 10px; }
+    .post .post-container .post-header h1 {
+      font-size: 24px; }
+    .post .post-container .post-content {
+      font-size: 12px; } }
