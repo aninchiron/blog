@@ -842,7 +842,6 @@ pre {
 #comment #ds-thread #ds-reset .ds-powered-by {
   display: none; }
 
-/* https://github.com/sindresorhus/github-markdown-css */
 .markdown-body :first-child {
   margin-top: 0 !important; }
 
@@ -857,10 +856,22 @@ pre {
   margin: .67em 0; }
 
 .markdown-body h2 {
-  font-size: 1.5em; }
+  font-size: 1.8em; }
 
 .markdown-body h3 {
-  font-size: 1.25em; }
+  font-size: 1.6em; }
+
+.markdown-body h4 {
+  font-size: 1.3em; }
+
+.markdown-body h5 {
+  font-size: 1.1em; }
+
+.markdown-body h6 {
+  font-size: 1em; }
+
+.markdown-body p {
+  font-size: 1em; }
 
 .markdown-body h1, .markdown-body h2 {
   border-bottom: 1px solid #eaecef;
@@ -983,4 +994,4 @@ pre {
     .post .post-container .post-header h1 {
       font-size: 24px; }
     .post .post-container .post-content {
-      font-size: 16px; } }
+      font-size: 14px; } }
