@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="aninchiron">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="关于reselect的xxx">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="旋转跳跃喔">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>关于reselect的xxx - 旋转跳跃喔</title>
+  <script type="text/javascript" src="/js/preview_img.js"></script>
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ef2d21ef15c004432707e8cd6ef77bcd";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>    
+  <link rel="shortcut icon" href="/images/favicon.png">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+
+<body>
+
+  <!-- Main Content -->
+  
+
+<div class="post">
+  <!-- Post Content -->
+  
+  <div class="post-logo-placeholder">
+    <span><a href="/">aninchiron</a></span>
+  </div>
+  
+  <article class="post-container">
+    <!-- Title date & tags -->
+    <div class="post-header">
+      <h4>
+        Jan 26 2021
+      </h4>
+      <h1>
+        关于reselect的xxx 
+      </h1>
+      <div class="tags-links">
+         
+        <a href="/tags/reselect/" rel="tag">
+          #reselect
+        </a>
+         
+      </div>
+    </div>
+    <!-- Post Main Content -->
+    <div
+      class="post-content markdown-body "
+    >
+      <h2 id="reselect简介"><a href="#reselect简介" class="headerlink" title="reselect简介"></a>reselect简介</h2><p>一个能缓存计算结果的函数库，可以减少没必要的重复计算，用于搭配redux使用</p>
+<h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><h4 id="selector"><a href="#selector" class="headerlink" title="selector"></a>selector</h4><p>selector是一个闭包函数，会缓存结果，由defaultMemoize创建</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">defaultMemoize</span>(<span class="params">func, equalityCheck = defaultEqualityCheck</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> lastArgs = <span class="literal">null</span>  <span class="comment">//缓存外部依赖，通常是redux中的state或inputSelectors计算的结果</span></span><br><span class="line">  <span class="keyword">let</span> lastResult = <span class="literal">null</span>  <span class="comment">//缓存结果</span></span><br><span class="line">  <span class="comment">// we reference arguments instead of spreading them for performance reasons //为了更好的性能不使用扩展运算符</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!areArgumentsShallowlyEqual(equalityCheck, lastArgs, <span class="built_in">arguments</span>)) &#123; <span class="comment">//判断新旧依赖是否改变，改了则重新结算结果</span></span><br><span class="line">      <span class="comment">// apply arguments instead of spreading for performance.</span></span><br><span class="line">      lastResult = func.apply(<span class="literal">null</span>, <span class="built_in">arguments</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    lastArgs = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">return</span> lastResult</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="核心api"><a href="#核心api" class="headerlink" title="核心api"></a>核心api</h3><h4 id="createSelector-…inputSelectors-inputSelectors-resultFunc"><a href="#createSelector-…inputSelectors-inputSelectors-resultFunc" class="headerlink" title="createSelector(…inputSelectors | [inputSelectors], resultFunc)"></a>createSelector(…inputSelectors | [inputSelectors], resultFunc)</h4><p>创建一个具有记忆功能的selcetor</p>
+<ul>
+<li>第一个参数是个map函数，用于取出依赖的值，参数形式可以是多个依次传入，也可以是传入一个函数数组</li>
+<li>第二个参数用前一个参数的结果来计算得到最终要需要的值</li>
+</ul>
+<h4 id="createStructuredSelector-inputSelectors-selectorCreator-createSelector"><a href="#createStructuredSelector-inputSelectors-selectorCreator-createSelector" class="headerlink" title="createStructuredSelector(inputSelectors, selectorCreator = createSelector)"></a>createStructuredSelector(inputSelectors, selectorCreator = createSelector)</h4><p>简化使用selector，不需要手动的传入state给selector，createStructuredSelector会自动调用所有selector，并返回inputSelectors相同键的对象,对应值为selector的计算结果</p>
+<ul>
+<li>第一个参数是个key和selector映射的对象</li>
+<li>第二个参数默认使用createSelector</li>
+</ul>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><ul>
+<li><p>不使用reselect，每次组件依赖的其他state值（如下的name）改变时都会重新reduce</p>
+</li>
+<li><p>使用reselect，只有当自己依赖的items改变了才会重新reduce</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> initState = &#123;</span><br><span class="line">  name: <span class="string">'init'</span>,</span><br><span class="line">  items: [ &#123; <span class="attr">value</span>: <span class="number">1</span>&#125;, &#123; <span class="attr">value</span>: <span class="number">2</span> &#125;, &#123; <span class="attr">value</span>: <span class="number">3</span> &#125;],</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(reducer, initState,applyMiddleware(...middlewares))</span><br><span class="line"><span class="comment">//使用reselect</span></span><br><span class="line"><span class="keyword">const</span> totalSelector = createSelector(</span><br><span class="line">  state =&gt; state.items,</span><br><span class="line">  items =&gt; items.reduce(<span class="function">(<span class="params">acc, curr</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> acc + curr.value</span><br><span class="line">    &#125;, <span class="number">0</span>)</span><br><span class="line">)</span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function"><span class="params">state</span> =&gt;</span> (&#123;</span><br><span class="line">  name: state.name,</span><br><span class="line">  total: totalSelector(state)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//使用createStructuredSelector， 无需手动传入state给selector</span></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = createStructuredSelector(&#123;</span><br><span class="line">  name: <span class="function"><span class="params">state</span> =&gt;</span> state.name,</span><br><span class="line">  total: totalSelector</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//不使用reselect</span></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function"><span class="params">state</span> =&gt;</span> (&#123;</span><br><span class="line">  name: state.name,</span><br><span class="line">  total: state.items.reduce(<span class="function">(<span class="params">acc, curr</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> acc + curr.value</span><br><span class="line">    &#125;, <span class="number">0</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="源码注释"><a href="#源码注释" class="headerlink" title="源码注释"></a>源码注释</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">defaultEqualityCheck</span>(<span class="params">a, b</span>) </span>&#123; <span class="comment">//判断严格相同</span></span><br><span class="line">  <span class="keyword">return</span> a === b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">areArgumentsShallowlyEqual</span>(<span class="params">equalityCheck, prev, next</span>) </span>&#123;  <span class="comment">//判断prev和next两个值是否严格相等，用于selector中判断依赖是否改变</span></span><br><span class="line">  <span class="keyword">if</span> (prev === <span class="literal">null</span> || next === <span class="literal">null</span> || prev.length !== next.length) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Do this in a for loop (and not a `forEach` or an `every`) so we can determine equality as fast as possible.</span></span><br><span class="line">  <span class="keyword">const</span> length = prev.length</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!equalityCheck(prev[i], next[i])) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//创建具有记忆功能的selector</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">defaultMemoize</span>(<span class="params">func, equalityCheck = defaultEqualityCheck</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> lastArgs = <span class="literal">null</span> <span class="comment">//缓存外部依赖，通常是redux中的state或inputSelectors计算的结果</span></span><br><span class="line">  <span class="keyword">let</span> lastResult = <span class="literal">null</span>  <span class="comment">//缓存结果</span></span><br><span class="line">  <span class="comment">// we reference arguments instead of spreading them for performance reasons</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'arguments'</span> ,<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="keyword">if</span> (!areArgumentsShallowlyEqual(equalityCheck, lastArgs, <span class="built_in">arguments</span>)) &#123;</span><br><span class="line">      <span class="comment">// apply arguments instead of spreading for performance.</span></span><br><span class="line">      lastResult = func.apply(<span class="literal">null</span>, <span class="built_in">arguments</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    lastArgs = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">return</span> lastResult</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//获取inputSelector函数列表</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getDependencies</span>(<span class="params">funcs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dependencies = <span class="built_in">Array</span>.isArray(funcs[<span class="number">0</span>]) ? funcs[<span class="number">0</span>] : funcs  <span class="comment">//接受数组形式的传参</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!dependencies.every(<span class="function"><span class="params">dep</span> =&gt;</span> <span class="keyword">typeof</span> dep === <span class="string">'function'</span>)) &#123;</span><br><span class="line">    <span class="keyword">const</span> dependencyTypes = dependencies.map(</span><br><span class="line">      dep =&gt; <span class="keyword">typeof</span> dep</span><br><span class="line">    ).join(<span class="string">', '</span>)</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">      <span class="string">'Selector creators expect all input-selectors to be functions, '</span> +</span><br><span class="line">      <span class="string">`instead received the following types: [<span class="subst">$&#123;dependencyTypes&#125;</span>]`</span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> dependencies</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//整理入参，调用memoize来创建selector，这也是我们常用的api</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">createSelectorCreator</span>(<span class="params">memoize, ...memoizeOptions</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...funcs</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> recomputations = <span class="number">0</span></span><br><span class="line">    <span class="keyword">const</span> resultFunc = funcs.pop()  <span class="comment">//取出最后一个函数，默认为计算最终结果的函数</span></span><br><span class="line">    <span class="keyword">const</span> dependencies = getDependencies(funcs) <span class="comment">//获取inputSelector函数列表</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> memoizedResultFunc = memoize(</span><br><span class="line">      <span class="comment">//缓存计算结果，依赖inputSelectors计算的结果</span></span><br><span class="line">      <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        recomputations++</span><br><span class="line">        <span class="comment">// apply arguments instead of spreading for performance.</span></span><br><span class="line">        <span class="keyword">return</span> resultFunc.apply(<span class="literal">null</span>, <span class="built_in">arguments</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">      ...memoizeOptions</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If a selector is called with the exact same arguments we don't need to traverse our dependencies again.</span></span><br><span class="line">    <span class="keyword">const</span> selector = memoize(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//将inputSelector函数的结果组合起来，传给计算最终结果的函数，计算最终结果返回，这里依赖最开始传入的数据也就是redux中的state</span></span><br><span class="line">      <span class="keyword">const</span> params = []</span><br><span class="line">      <span class="keyword">const</span> length = dependencies.length</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">        <span class="comment">// apply arguments instead of spreading and mutate a local list of params for performance.</span></span><br><span class="line">        params.push(dependencies[i].apply(<span class="literal">null</span>, <span class="built_in">arguments</span>))</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// apply arguments instead of spreading for performance.</span></span><br><span class="line">      <span class="keyword">return</span> memoizedResultFunc.apply(<span class="literal">null</span>, params)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    selector.resultFunc = resultFunc</span><br><span class="line">    selector.dependencies = dependencies</span><br><span class="line">    selector.recomputations = <span class="function"><span class="params">()</span> =&gt;</span> recomputations</span><br><span class="line">    selector.resetRecomputations = <span class="function"><span class="params">()</span> =&gt;</span> recomputations = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> selector</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> createSelector = <span class="comment">/* #__PURE__ */</span> createSelectorCreator(defaultMemoize)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">createStructuredSelector</span>(<span class="params">selectors, selectorCreator = createSelector</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> selectors !== <span class="string">'object'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">      <span class="string">'createStructuredSelector expects first argument to be an object '</span> +</span><br><span class="line">      <span class="string">`where each property is a selector, instead received a <span class="subst">$&#123;<span class="keyword">typeof</span> selectors&#125;</span>`</span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> objectKeys = <span class="built_in">Object</span>.keys(selectors)<span class="comment">//取出所有key</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> selectorCreator(</span><br><span class="line">    objectKeys.map(<span class="function"><span class="params">key</span> =&gt;</span> selectors[key]),<span class="comment">//取出所有selector合成数组</span></span><br><span class="line">    (...values) =&gt; &#123;  <span class="comment">//计算结果的函数，值为每个selector的结果</span></span><br><span class="line">      <span class="comment">//组装结果，返回和传入的selectors相同的键的对象</span></span><br><span class="line">      <span class="keyword">return</span> values.reduce(<span class="function">(<span class="params">composition, value, index</span>) =&gt;</span> &#123;</span><br><span class="line">        composition[objectKeys[index]] = value</span><br><span class="line">        <span class="keyword">return</span> composition</span><br><span class="line">      &#125;, &#123;&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+  </article>
+</div>
+
+
+  <!-- Nav -->
+  <div class="site-header">
+  <div>
+    
+    <div class="lyric nothome">旋转，跳跃喔，他感到每条路都在头疼 《一个短篇》</div>
+    
+  </div>
+  <nav class="navbar">
+     
+    <a
+      href="/."
+    >
+       主页 
+    </a>
+    
+    <a
+      href="/archives"
+    >
+       归档 
+    </a>
+    
+  </nav>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+
+<!-- Footer -->
+<footer class="site-info">
+  
+</footer>
+
+
+</body>
+
+</html>
