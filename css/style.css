@@ -922,6 +922,7 @@ pre {
 
 .markdown-body figure {
   overflow: hidden;
+  overflow-x: auto;
   border-radius: 6px; }
 
 .img_preview_container {
